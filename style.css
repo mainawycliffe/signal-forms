@@ -1,0 +1,74 @@
+/* Angular brand styling layered on top of the seriph theme */
+
+:root {
+  --angular-red: #dd0031;
+  --angular-pink: #e23dae;
+  --angular-purple: #8f2cd8;
+}
+
+/* Gradient headings, scoped so they don't leak into the presenter UI */
+.slidev-layout h1 {
+  background: linear-gradient(120deg, var(--angular-pink), var(--angular-purple));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-weight: 700;
+}
+
+.slidev-layout h2 {
+  color: var(--angular-purple);
+}
+
+.slidev-layout a {
+  color: var(--angular-red);
+  text-decoration: none;
+}
+
+.slidev-layout a:hover {
+  text-decoration: underline;
+}
+
+/* Inline code accents */
+.slidev-layout :not(pre) > code {
+  color: var(--angular-purple);
+  background: rgba(143, 44, 216, 0.08);
+  padding: 0.1em 0.35em;
+  border-radius: 5px;
+}
+
+/* A little badge helper used on a few slides */
+.pill {
+  display: inline-block;
+  padding: 0.2rem 0.7rem;
+  border-radius: 999px;
+  background: rgba(226, 61, 174, 0.14);
+  color: var(--angular-purple);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+/* Slightly tighter code blocks so more fits per slide */
+.slidev-layout pre {
+  font-size: 0.82em;
+  line-height: 1.45;
+}
+
+/* Gently pulsing heart on the closing slide */
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  15% { transform: scale(1.25); }
+  30% { transform: scale(1); }
+  45% { transform: scale(1.15); }
+}
+
+.heartbeat {
+  animation: heartbeat 1.6s ease-in-out infinite;
+}
+
+/* Smooth the default click-reveal fade a touch */
+.slidev-vclick-target {
+  transition: opacity 300ms ease, transform 300ms ease;
+}
+

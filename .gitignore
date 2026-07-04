@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.slidev/
+*.pdf
+*-export.*
+demo/dist/
+demo/.angular/
+demo/node_modules/
