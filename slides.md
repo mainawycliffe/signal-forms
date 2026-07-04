@@ -264,6 +264,8 @@ layout: two-cols-header
 
 ::left::
 
+<div class="pr-6">
+
 ```ts {1-3|5|7-11|all}
 import { Component, signal } from '@angular/core';
 import { form, FormField, required, email }
@@ -283,7 +285,11 @@ protected readonly userForm = form(
 );
 ```
 
+</div>
+
 ::right::
+
+<div class="pl-6">
 
 ```html {1-3|5|all}
 <input [formField]="userForm.name" />
@@ -301,6 +307,8 @@ protected readonly userForm = form(
 - The model stays a plain signal you can read anywhere
 
 </v-click>
+
+</div>
 
 ---
 
