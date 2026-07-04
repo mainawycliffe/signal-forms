@@ -38,8 +38,16 @@ highlighter: shiki
 <div
   v-motion
   :initial="{ opacity: 0 }"
-  :enter="{ opacity: 0.6, transition: { delay: 800 } }"
-  class="pt-12 text-base">
+  :enter="{ opacity: 1, transition: { delay: 750 } }"
+  class="pt-10">
+  <span class="pill">Angular Day · GDG Soweto</span>
+</div>
+
+<div
+  v-motion
+  :initial="{ opacity: 0 }"
+  :enter="{ opacity: 0.6, transition: { delay: 950 } }"
+  class="pt-4 text-base">
   Wycliffe Maina · 2026
 </div>
 
