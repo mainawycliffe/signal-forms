@@ -8,6 +8,7 @@ export const EXAMPLES = [
   { path: 'zod', title: 'Zod validation', blurb: 'validateStandardSchema() with Zod' },
   { path: 'async', title: 'Async validation', blurb: 'validateAsync() with resource()' },
   { path: 'submit', title: 'Submitting', blurb: 'submit(), submitting() & server errors' },
+  { path: 'custom-control', title: 'Custom controls', blurb: 'Build your own FormValueControl' },
 ] as const;
 
 export const routes: Routes = [
@@ -43,6 +44,11 @@ export const routes: Routes = [
   {
     path: 'submit',
     loadComponent: () => import('./examples/submit-form/submit-form').then((m) => m.SubmitForm),
+  },
+  {
+    path: 'custom-control',
+    loadComponent: () =>
+      import('./examples/custom-control/custom-control').then((m) => m.CustomControl),
   },
   { path: '**', redirectTo: '' },
 ];

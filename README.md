@@ -1,6 +1,6 @@
-# Signal Forms — talk (Angular v22)
+# The Next Generation of State — Signal Forms talk (Angular v22)
 
-A 40-minute session on **Angular Signal Forms** (stable since v22): a Slidev deck
+A 40-minute session on **mastering stable Angular Signal Forms**: a Slidev deck
 plus a runnable Angular demo whose code the slides are copied from — so every
 snippet on screen actually compiles.
 
@@ -43,7 +43,7 @@ npm test                     # signal-forms unit tests (Vitest)
 
 ## Slide ↔ demo map
 
-Slides 9–17 mirror the demo one-to-one. If you edit a snippet on a slide,
+The API-focused slides mirror the demo examples one-to-one. If you edit a snippet on a slide,
 change the matching `demo/` component and re-run `npm run build` in `demo/` to
 keep the code honest.
 

@@ -1,13 +1,12 @@
 ---
 theme: seriph
-title: 'Kill the Boilerplate: Moving from Reactive Event Trees to Angular Signal Forms'
+title: 'The Next Generation of State: Mastering Stable Signal Forms in Angular'
 info: |
-  ## Kill the Boilerplate
-  Moving from Reactive Event Trees to Angular Signal Forms — stable since v22.
-colorSchema: light
+  ## The Next Generation of State
+  Mastering Stable Signal Forms in Angular — production patterns for Angular v22+.
+colorSchema: dark
 layout: center
-class: text-center
-background: '#ffffff'
+class: text-center angular-cover
 transition: slide-left
 mdc: true
 highlighter: shiki
@@ -17,22 +16,22 @@ highlighter: shiki
   v-motion
   :initial="{ y: -20, opacity: 0 }"
   :enter="{ y: 0, opacity: 1, transition: { delay: 75 } }">
-  <span class="pill">Stable since Angular v22</span>
+  <span class="pill">Angular v22+ · Stable API</span>
 </div>
 
 <h1
   v-motion
   :initial="{ y: 40, opacity: 0 }"
   :enter="{ y: 0, opacity: 1, transition: { delay: 200, duration: 500 } }">
-  Kill the Boilerplate
+  The Next Generation<br>of State
 </h1>
 
 <div
   v-motion
   :initial="{ opacity: 0 }"
   :enter="{ opacity: 0.75, transition: { delay: 500 } }"
-  class="text-xl -mt-2">
-  Moving from Reactive Event Trees to Angular Signal Forms
+  class="text-2xl -mt-2 angular-subtitle">
+  Mastering Stable Signal Forms in Angular
 </div>
 
 <div
@@ -40,7 +39,7 @@ highlighter: shiki
   :initial="{ opacity: 0 }"
   :enter="{ opacity: 1, transition: { delay: 750 } }"
   class="pt-10">
-  <span class="pill">Angular Day · GDG Soweto</span>
+  <span class="pill">NgKenya 2026</span>
 </div>
 
 <div
@@ -48,42 +47,67 @@ highlighter: shiki
   :initial="{ opacity: 0 }"
   :enter="{ opacity: 0.6, transition: { delay: 950 } }"
   class="pt-4 text-base">
-  Wycliffe Maina · 2026
+  Maina Wycliffe · Chief Builder
 </div>
 
+<div
+  v-motion
+  :initial="{ opacity: 0 }"
+  :enter="{ opacity: 0.72, transition: { delay: 1100 } }"
+  class="pt-2 text-sm presenter-links">
+  <a href="https://mainawycliffe.dev">mainawycliffe.dev</a>
+  <span>·</span>
+  <a href="https://www.linkedin.com/in/mainawycliffe/">LinkedIn /in/mainawycliffe</a>
+</div>
+
+<img
+  v-motion
+  :initial="{ x: 45, y: 25, opacity: 0, rotate: 5 }"
+  :enter="{ x: 0, y: 0, opacity: 1, rotate: -3, transition: { delay: 900, duration: 550 } }"
+  :src="'/assets/angular-angie.png'"
+  alt="Angie, the Angular mascot"
+  class="angie angie-cover"
+/>
+
 <!--
-Welcome. Today: how Angular got signals everywhere — except forms — and how
-Signal Forms finally close that gap. Everything you'll see is real, compiling
-Angular 22 code from the demo app in this repo.
+Welcome. Signal Forms are now stable, so this is no longer a preview of a new
+syntax. It is a production conversation: how a synchronous field graph changes
+form architecture, where strict typing and centralized validation pay off, and
+how to migrate without destabilizing customer-facing flows.
+
+[Sources]
+- https://angular.dev/guide/forms/signals/comparison
+- https://angular.dev/press-kit
+- https://angular.dev/assets/images/v21-event/mascot.png
 -->
 
 ---
 layout: default
 ---
 
-# The journey
+# What we will master
 
 <v-clicks>
 
-1. **Angular went all-in on signals** — a new reactivity model
-2. **Forms were the biggest holdout** — still RxJS + `ControlValueAccessor`
-3. **The old options fall short** — template-driven & reactive forms
-4. **The gap** — signals everywhere, but forms weren't signal-native
-5. **Signal Forms** — a model signal + a schema. Fully typed, reactive, testable.
+1. **The architectural shift** — from event streams to a synchronous field graph
+2. **The stable core** — model signals, field trees, bindings, and state
+3. **Production patterns** — strict types and centralized validation
+4. **Custom controls** — `FormValueControl` instead of CVA ceremony
+5. **Incremental migration** — modernize one boundary at a time
 
 </v-clicks>
 
 <div v-click class="mt-8 opacity-70">
-Then: validation, Zod, async, testing — with live, compiling examples.
+The core APIs are backed by the runnable Angular 22 demo in this repository.
 </div>
 
 ---
 
-# Angular's signal reactivity
+# Angular made state synchronous
 
-Signals became the framework's core reactive primitive.
+Signals give Angular a predictable graph of writable and derived state.
 
-```ts {1|3-4|6-9|all}
+```ts {1|3-4|6-7|9-10|all}
 const count = signal(0);                    // writable state
 
 // derived state — recomputes only when `count` changes
@@ -143,7 +167,7 @@ Signal inputs · queries · <code>linkedSignal</code> · <code>resource()</code>
 </v-clicks>
 
 <div v-click class="mt-4 text-angular font-semibold">
-Reach a form → drop out of signals, back into RxJS.
+Reach a form → switch mental models, wire subscriptions, and bridge back to signals.
 </div>
 
 </div>
@@ -155,7 +179,7 @@ Reach a form → drop out of signals, back into RxJS.
 
 Simple to start — but logic lives in the template and typing is weak.
 
-```ts {all|7-9}
+```ts {3-6|8-9|all}
 @Component({
   imports: [FormsModule],
   template: `
@@ -177,11 +201,11 @@ export class Login {
 
 ---
 
-# Reactive forms
+# Reactive Forms introduced an event boundary
 
-Typed-ish and explicit — but verbose, and reactivity is RxJS, not signals.
+Explicit and proven — but changes arrive as streams instead of synchronous state.
 
-```ts {all|3-6|8-9|11}
+```ts {3-6|9-10|12|all}
 export class Login {
   form = new FormGroup({
     email: new FormControl('', {
@@ -199,13 +223,14 @@ export class Login {
 
 <v-clicks>
 
-- ❌ Verbose · ❌ `.value` vs `.getRawValue()` typing gaps
-- ❌ `valueChanges` is RxJS · ❌ constant `toSignal()` glue
+- More control-tree ceremony and subscription lifecycle decisions
+- `valueChanges` is RxJS, so signal-based consumers need adapter code
 
 </v-clicks>
 
 ---
 layout: statement
+class: angular-statement
 transition: fade-out
 ---
 
@@ -217,7 +242,7 @@ transition: fade-out
 </h1>
 
 <div v-click class="mt-6 opacity-70 text-xl">
-Your whole app is signals — then a form drops you into Observables and untyped glue.
+Your component graph is synchronous — then a form reintroduces event streams and adapters.
 </div>
 
 <div v-click class="mt-10 max-w-3xl mx-auto">
@@ -241,7 +266,7 @@ A form is just a <code>signal()</code> model + a schema.
 <div class="grid grid-cols-2 gap-6 items-center">
 <div>
 
-```ts {1|3-6|all}
+```ts {1-2|4-5|7-10|all}
 import { form, required, email }
   from '@angular/forms/signals';
 
@@ -261,11 +286,18 @@ const userForm = form(model, (path) => {// + schema
 </div>
 
 <div v-click class="mt-3 opacity-70 text-sm text-center">
-<code>form()</code> derives a <b>reactive field tree</b> — from <code>@angular/forms/signals</code>, stable in v22. No RxJS, no <code>ControlValueAccessor</code>.
+<code>form()</code> derives a <b>reactive field tree</b> — stable in Angular 22. Native inputs and new custom controls need no RxJS bridge.
 </div>
+
+<!--
+[Sources]
+- https://angular.dev/api/forms/signals/form
+- https://angular.dev/guide/forms/signals/overview
+-->
 
 ---
 layout: two-cols-header
+layoutClass: migration-slide
 ---
 
 # Simple example
@@ -274,7 +306,7 @@ layout: two-cols-header
 
 <div class="pr-6">
 
-```ts {1-3|5|7-11|all}
+```ts {1-3|5-7|9-16|all}
 import { Component, signal } from '@angular/core';
 import { form, FormField, required, email }
   from '@angular/forms/signals';
@@ -299,7 +331,7 @@ protected readonly userForm = form(
 
 <div class="pl-6">
 
-```html {1-3|5|all}
+```html {1|3-4|6|all}
 <input [formField]="userForm.name" />
 
 <input type="email"
@@ -320,11 +352,43 @@ protected readonly userForm = form(
 
 ---
 
-# Field state & errors
+# The model becomes the type contract
+
+```ts {1-5|7-9|11-15|all}
+type Signup = {
+  name: string;
+  email: string;
+  plan: 'starter' | 'enterprise';
+};
+
+const model = signal<Signup>({
+  name: '', email: '', plan: 'starter',
+});
+
+const signupForm = form(model, (path) => {
+  required(path.email);       // path is typed as string
+  required(path.plan);        // union is preserved
+  // min(path.email, 18);      // compile-time type error
+});
+```
+
+<div v-click class="takeaway mt-4">
+Rename or reshape the model and TypeScript exposes every stale field path at build time.
+</div>
+
+<!--
+[Sources]
+- https://angular.dev/guide/forms/signals/models
+- https://angular.dev/guide/forms/signals/comparison
+-->
+
+---
+
+# Field state is readable, derived state
 
 Call the field like a function → read its state signals.
 
-```ts {all|2|4-9}
+```ts {2-3|4-8|all}
 // every field exposes signals:
 userForm.email().value()      // WritableSignal — current value
 userForm.email().valid()      // boolean
@@ -335,7 +399,7 @@ userForm.email().pending()    // async validation in flight
 userForm.email().submitting() // submit in progress
 ```
 
-```html {all|1-3}
+```html {all}
 @if (userForm.email().touched() && userForm.email().errors().length) {
   <p class="error">{{ userForm.email().errors()[0].message }}</p>
 }
@@ -343,11 +407,11 @@ userForm.email().submitting() // submit in progress
 
 ---
 
-# Validation
+# Validation belongs in the schema
 
 Built-in, custom, cross-field — all inside the schema function.
 
-```ts {1-5|7-8|10-15|all}
+```ts {1-5|7-12|all}
 form(this.model, (path) => {
   required(path.email, { message: 'Email is required' });
   email(path.email);
@@ -369,9 +433,9 @@ The schema function is <b>not reactive</b> — branch with <code>applyWhen()</co
 
 ---
 
-# Conditional & reusable schemas
+# Centralize rules as reusable schemas
 
-```ts {1-6|8-13|all}
+```ts {1-6|8-9|11-14|16-18|all}
 // Reusable: define validation once, apply it anywhere
 const addressSchema = schema<Address>((a) => {
   required(a.street);
@@ -398,7 +462,7 @@ form(this.model, (path) => {
 
 Zod implements the **Standard Schema** spec — Angular speaks it natively.
 
-```ts {1-2|4-8|10-13|all}
+```ts {1-2|4-8|10-12|all}
 import { validateStandardSchema } from '@angular/forms/signals';
 import * as z from 'zod';
 
@@ -423,7 +487,7 @@ Same one-liner works with Valibot, ArkType — anything Standard-Schema compatib
 
 `validateAsync()` runs a `resource()` — only after sync validators pass.
 
-```ts {1|3-4|6-11|13-16|all}
+```ts {1|2-3|5-11|13-16|all}
 validateAsync(path.username, {
   // what value to validate
   params: ({ value }) => value(),
@@ -453,7 +517,7 @@ validateAsync(path.username, {
 
 `submit()` tracks `submitting()` and maps server errors back onto fields.
 
-```ts {1|3-4|6-12|14|all}
+```ts {1-3|5-12|13-14|all}
 submit(this.loginForm, async () => {
   const value = this.model();
   await api.register(value);
@@ -478,11 +542,48 @@ submit(this.loginForm, async () => {
 
 ---
 
+# Custom controls lose the CVA ceremony
+
+```ts {1-2|4-7|8-12|all}
+import { Component, input, model } from '@angular/core';
+import { FormValueControl, ValidationError } from '@angular/forms/signals';
+
+@Component({
+  selector: 'app-star-rating',
+  template: `<!-- stars update value.set(...) -->`,
+})
+export class StarRating implements FormValueControl<number> {
+  readonly value = model(0);           // required contract
+  readonly disabled = input(false);    // optional field state
+  readonly errors =
+    input<readonly ValidationError.WithOptionalFieldTree[]>([]);
+}
+```
+
+```html
+<app-star-rating [formField]="reviewForm.rating" />
+```
+
+<div v-click class="takeaway mt-3">
+One model signal is enough for binding; opt into only the state your component needs.
+</div>
+
+<!--
+Custom signal controls also work in Reactive and Template-Driven forms, which
+makes this a useful first migration seam.
+
+[Sources]
+- https://angular.dev/guide/forms/signals/custom-controls
+- https://angular.dev/api/forms/signals/FormValueControl
+-->
+
+---
+
 # Testing forms
 
 No HTTP mocks, no RxJS, no `detectChanges()` — drive the model, read the state.
 
-```ts {1-2|4-6|8-11|13-17|all}
+```ts {1-2|4-7|9-13|15-19|all}
 import { TestBed } from '@angular/core/testing';
 import { BasicForm } from './basic-form';
 
@@ -508,94 +609,119 @@ it('rejects a bad email', () => {
 layout: two-cols-header
 ---
 
-# Migration: Reactive → Signal
+# Migrate one boundary at a time
 
 ::left::
 
-**Reactive forms**
+**Bottom-up: modernize a leaf**
 
-```ts
-form = new FormGroup({
-  name: new FormControl('', {
-    nonNullable: true,
-    validators: [Validators.required],
-  }),
+```ts {1-3|5-8|all}
+email = new SignalFormControl('', (p) => {
+  required(p);
 });
 
-// value
-this.form.getRawValue();
-// changes — RxJS
-this.form.valueChanges;
+form = new FormGroup({
+  name: new FormControl(''),
+  email: this.email,
+});
 ```
 
 ```html
-<input [formControl]="form.controls.name" />
+<input [formField]="email.fieldTree" />
 ```
 
 ::right::
 
-**Signal forms**
+**Top-down: preserve a complex island**
 
-```ts
-model = signal({ name: '' });
-
-userForm = form(this.model, (p) => {
-  required(p.name);
+```ts {1-4|6-9|11|all}
+const address = new FormGroup({
+  street: new FormControl(''),
+  city: new FormControl(''),
 });
 
-// value — a signal
-this.model();
-// changes — just derive
-computed(() => this.model());
+const model = signal({
+  customerName: '',
+  shippingAddress: address,
+});
+
+const checkout = compatForm(model);
 ```
 
-```html
-<input [formField]="userForm.name" />
-```
+::bottom::
 
-<div class="col-span-2 mt-4 opacity-70 text-sm">
-⚠️ Schema fn isn't reactive · needs non-null defaults · best for signal-based / new apps · still maturing.
+<div class="migration-path">
+<span>New features</span><b>→</b>
+<span><code>FormValueControl</code> seams</span><b>→</b>
+<span>Compatibility adapters for complex islands</span>
+<strong>Modernize without a rewrite.</strong>
 </div>
+
+<!--
+SignalFormControl and compatForm live under @angular/forms/signals/compat.
+Do not implement both ControlValueAccessor and FormValueControl on one component.
+
+[Sources]
+- https://angular.dev/guide/forms/signals/migration
+-->
 
 ---
-layout: center
-class: text-center
+layout: default
+class: text-center angular-finale
 ---
 
-# Recap
+<div class="finale-grid">
+<section class="finale-copy text-left">
+<span class="pill">One idea to take home</span>
 
-<div class="text-left inline-block mt-4">
+<h1>Make your next form the migration seam.</h1>
 
-<v-clicks>
+<p class="finale-lede">
+Adopt the signal model where it creates value now—without rewriting the architecture around it.
+</p>
 
-- Angular went signal-first — **forms were the last holdout**
-- Template-driven & reactive forms fought the signal model
-- **Signal Forms = a signal model + a schema** — typed, reactive, testable
-- Validation, **Zod**, async, submit, testing — no RxJS glue
-
-</v-clicks>
-
+<div class="finale-steps">
+<div class="finale-step">
+<span>01</span>
+<p><strong>Model first</strong><small>Let strict types define the field graph.</small></p>
+</div>
+<div class="finale-step">
+<span>02</span>
+<p><strong>Schema once</strong><small>Centralize validation and reuse the rules.</small></p>
+</div>
+<div class="finale-step">
+<span>03</span>
+<p><strong>Migrate safely</strong><small>Use control and compatibility boundaries.</small></p>
+</div>
 </div>
 
-<div class="mt-10 text-sm opacity-80">
-
-**Resources** —
-[Signal Forms guide](https://angular.dev/guide/forms/signals/overview) ·
-[Validation](https://angular.dev/guide/forms/signals/validation) ·
-[Schemas](https://angular.dev/guide/forms/signals/schemas) ·
-[Migration](https://angular.dev/guide/forms/signals/migration) ·
-[API](https://angular.dev/api/forms/signals/form)
-
+<div class="finale-links">
+<a href="https://mainawycliffe.dev">mainawycliffe.dev</a>
+<a href="https://www.linkedin.com/in/mainawycliffe/">LinkedIn /in/mainawycliffe</a>
+<a href="https://angular.dev/guide/forms/signals/overview">Angular docs</a>
 </div>
+</section>
 
-<div
-  v-motion
-  :initial="{ scale: 0.8, opacity: 0 }"
-  :enter="{ scale: 1, opacity: 1, transition: { delay: 400 } }"
-  class="mt-8 text-2xl text-angular font-semibold">
-Thank you <span class="heartbeat inline-block">💜</span>
+<aside class="finale-visual">
+<img
+:src="'/assets/angular-angie.png'"
+alt="Angie, the Angular mascot"
+class="finale-angie"
+/>
+
+<a class="repo-qr" href="https://github.com/mainawycliffe/signal-forms">
+<img :src="'/assets/signal-forms-repository-qr.png'" alt="QR code for the Signal Forms repository" />
+<strong>Run the demo</strong>
+<span>github.com/mainawycliffe/<br>signal-forms</span>
+</a>
+</aside>
 </div>
 
 <!--
 All code in this deck compiles against Angular 22 — see the runnable demo/ app.
+
+[Sources]
+- https://angular.dev/press-kit
+- https://angular.dev/assets/images/v21-event/mascot.png
+- https://github.com/mainawycliffe/signal-forms
 -->

@@ -50,7 +50,8 @@ export class SubmitForm {
     event.preventDefault();
 
     // submit() blocks concurrent submits and tracks submitting() for you.
-    submit(this.loginForm, async () => {
+    // Returned so callers (and tests) can await completion.
+    return submit(this.loginForm, async () => {
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
       const value = this.model();
